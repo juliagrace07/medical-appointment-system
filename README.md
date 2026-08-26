@@ -1,4 +1,4 @@
-#  Medical Appointment Assistant
+#  Medical Appointment System
 
 An AI-powered medical appointment management application that combines appointment scheduling with an intelligent healthcare assistant. The application provides a modern interface for managing patient appointments while leveraging Retrieval-Augmented Generation (RAG) to answer medical-related questions using a semantic knowledge base.
 
