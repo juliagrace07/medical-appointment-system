@@ -74,10 +74,9 @@ This project demonstrates modern software engineering practices including RESTfu
 
 ---
 
-##  Project Structure
+## Project Structure
 
-```text
-MedicalAppointment/
+medical-appointment-system/
 │
 ├── backend/
 │   ├── main.py
@@ -97,121 +96,180 @@ MedicalAppointment/
 │   ├── requirements.txt
 │   └── Dockerfile
 │
-└── README.md
-```
+├── .gitignore
+├── README.md
+└── docker-compose.yml
 
----
+## AI Workflow
 
-##  Installation
+The AI assistant follows a retrieval and caching workflow:
 
-### Clone the repository
+User Question
+      │
+      ▼
+Check ChromaDB Cache
+      │
+      ├── Cached Response Found
+      │          │
+      │          ▼
+      │      Return Response
+      │
+      └── No Cached Response
+                 │
+                 ▼
+          Generate AI Response
+                 │
+                 ▼
+          Store in ChromaDB
+                 │
+                 ▼
+            Return Response
 
-```bash
-git clone https://github.com/juliagrace07/MedicalAppointment.git
-cd MedicalAppointment
-```
+This approach demonstrates how semantic retrieval and response caching can be incorporated into an AI-enabled application.
 
----
+## API Endpoints
 
-### Backend Setup
+The application exposes RESTful endpoints for core functionality.
 
-```bash
+Examples include:
+
+POST /appointments
+GET  /appointments
+POST /login
+POST /chat
+
+The FastAPI application also provides interactive API documentation through Swagger UI when running locally.
+
+http://localhost:8000/docs
+
+## Local Development
+
+# Prerequisites
+
+Make sure you have:
+
+Python 3.10+
+PostgreSQL
+Docker Desktop
+Git
+
+# 1. Clone the repository
+git clone https://github.com/juliagrace07/medical-appointment-system.git
+cd medical-appointment-system
+
+# 2. Backend setup
 cd backend
-
 python -m venv venv
-
-# Windows
+Windows
 venv\Scripts\activate
-
-# macOS/Linux
+macOS / Linux
 source venv/bin/activate
+
+Install dependencies:
 
 pip install -r requirements.txt
 
+Start the backend:
+
 uvicorn main:app --reload
-```
 
----
+The API will be available at:
 
-### Frontend Setup
+http://localhost:8000
+
+Swagger documentation:
+
+http://localhost:8000/docs
+
+# 3. Frontend setup
 
 Open a new terminal:
 
-```bash
 cd frontend
-
 pip install -r requirements.txt
 
+Start Streamlit:
+
 streamlit run app.py
-```
 
----
+## Docker
 
-##  Docker
+The application can also be run using Docker Compose.
 
-Run the application using Docker:
+From the project root:
 
-```bash
 docker compose up --build
-```
 
----
+To stop the containers:
 
-##  AI Workflow
+docker compose down
 
-1. User submits a healthcare-related question.
-2. The backend checks ChromaDB for a semantically similar cached response.
-3. If a suitable cached answer exists, it is returned immediately.
-4. Otherwise, the AI generates a new response.
-5. The new response is stored in ChromaDB for future reuse.
+## Environment Variables
 
-This reduces response time while minimizing repeated AI processing.
+Create a local .env file for environment-specific configuration.
 
----
+Never commit API keys, passwords, or other secrets to GitHub.
 
-##  API
+A public .env.example file will be provided to document the required configuration without exposing credentials.
 
-Example endpoints include:
+## Application Screenshots
 
-```
-POST /appointments
-GET /appointments
-POST /login
-POST /chat
-```
+Application Dashboard
 
----
 
-##  Future Improvements
 
-* Doctor availability management
-* Email and SMS appointment reminders
-* Patient medical history
-* Prescription management
-* Role-based access control
-* Calendar integration
-* Voice-enabled AI assistant
-* Cloud deployment (Azure or AWS)
-* Analytics dashboard for appointment trends
 
----
+Appointment Management
 
-##  Learning Outcomes
 
-This project strengthened my understanding of:
 
-* REST API development
-* FastAPI backend architecture
-* Authentication and authorization
-* Database modeling
-* PostgreSQL integration
-* Docker containerization
-* Retrieval-Augmented Generation (RAG)
-* Vector databases
-* AI response caching
-* Full-stack application development
 
----
+AI Assistant
+
+
+
+
+API Documentation
+
+
+
+
+## Testing
+
+Automated tests are being added to validate core application functionality, API behavior, and appointment-management workflows.
+
+Test suite:
+
+pytest
+
+## Future Improvements
+
+Doctor availability management
+Email and SMS appointment reminders
+Expanded role-based access control
+Calendar integration
+Analytics dashboard
+Cloud deployment
+Expanded automated test coverage
+Improved AI retrieval and evaluation
+Production monitoring
+
+## What This Project Demonstrates
+
+This project demonstrates practical experience with:
+
+REST API development
+FastAPI backend architecture
+Database modeling
+PostgreSQL integration
+Authentication
+Full-stack application development
+Docker containerization
+Vector search
+Retrieval-Augmented Generation
+AI response caching
+API documentation
+Software architecture
 
 ##  Author
 
