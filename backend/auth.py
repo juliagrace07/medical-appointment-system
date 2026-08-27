@@ -8,6 +8,10 @@ from passlib.context import CryptContext
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
+
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY environment variable is not set")
+
 ALGORITHM = "HS256"
 
 pwd_context = CryptContext(
@@ -27,6 +31,7 @@ def verify_password(password: str, hashed_password: str):
 def create_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(hours=8)
+
     to_encode.update({"exp": expire})
 
     return jwt.encode(

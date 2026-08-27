@@ -18,6 +18,8 @@ env/
 *.db
 *.sqlite
 *.sqlite3
+
+# ChromaDB
 chroma_data/
 backend/chroma_data/
 
@@ -31,3 +33,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Docker
+*.tar

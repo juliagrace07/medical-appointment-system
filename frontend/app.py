@@ -1,3 +1,9 @@
+import os
+import requests
+import streamlit as st
+
+API_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+
 import streamlit as st
 import requests
 from datetime import datetime

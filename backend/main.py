@@ -411,8 +411,8 @@ def ai_chat(request: schemas.ChatRequest, db: Session = Depends(get_db)):
     latest_message = ""
 
     for msg in reversed(messages):
-        if msg["role"] == "user":
-            latest_message = msg["content"]
+        if msg.role == "user":
+            latest_message = msg.content
             break
 
     intent_data = detect_intent(latest_message, role)
