@@ -1,278 +1,293 @@
-# Medical Appointment System
+# 🏥 Medical Appointment System
 
-A full-stack healthcare application that combines medical appointment management with an AI-assisted healthcare information interface. The application uses FastAPI for the backend, Streamlit for the frontend, PostgreSQL for persistent data storage, and ChromaDB for vector-based retrieval and response caching.
+A full-stack medical appointment management platform that enables **patients to book and manage appointments**, **doctors to manage their schedules and appointments**, and both roles to interact with an **AI-powered medical assistant**.
 
-> **Disclaimer:** This project is intended for educational and portfolio demonstration purposes. It is not intended to provide medical diagnosis, treatment recommendations, or professional medical advice.
-
----
-
-## Overview
-
-The Medical Appointment System was developed to explore the design of a full-stack application that integrates RESTful APIs, database persistence, authentication, containerization, and AI-assisted information retrieval.
-
-The application separates the frontend and backend into independent services. The FastAPI backend manages application logic and API endpoints, while the Streamlit frontend provides the user interface. PostgreSQL is used for persistent application data, and ChromaDB supports the AI assistant's retrieval and caching workflow.
-
-The project demonstrates how traditional software engineering components can be combined with modern AI technologies to build an integrated application.
+The application is built with a **Streamlit frontend, FastAPI backend, PostgreSQL database, Docker, and an LLM-powered AI assistant**, providing separate workflows for patients and doctors.
 
 ---
 
-## Features
+##  Features
 
-### Appointment Management
+###  Patient Portal
 
-* Create medical appointments
-* View scheduled appointments
-* Store appointment information in PostgreSQL
-* Manage appointment-related operations through REST APIs
+* Secure patient login
+* View available doctors
+* Book medical appointments
+* View upcoming and previous appointments
+* Manage appointment information
+* Interact with the AI medical assistant
 
-### AI-Assisted Healthcare Information
+###  Doctor Portal
 
-* Natural-language interaction with an AI assistant
-* Retrieval-Augmented Generation (RAG) workflow
-* Semantic similarity search
-* Vector-based information retrieval
-* Response caching using ChromaDB
+* Doctor authentication
+* View assigned/upcoming appointments
+* Manage patient appointments
+* Access patient-related appointment information
+* Interact with the AI medical assistant
 
-### Authentication
+###  AI Medical Assistant
 
-* User authentication
-* Protected application functionality
-* Authentication logic integrated with the FastAPI backend
+* Natural-language interaction
+* Answers healthcare-related questions
+* Provides general medical information
+* Supports both patient and doctor workflows
+* Integrated into the application through the backend API
 
-### User Interface
+> **Note:** The AI assistant is intended for informational purposes and does not replace professional medical diagnosis or treatment.
 
-* Interactive Streamlit web application
-* Appointment management interface
-* AI assistant interface
-* Integration with backend REST APIs
+###  REST API
 
-### Containerization
+The backend is built with FastAPI and provides API endpoints for:
 
-* Dockerized backend
-* Dockerized frontend
-* Docker Compose configuration
-* Consistent local development environment
+* Patient management
+* Doctor management
+* Appointment management
+* AI chat functionality
+* Authentication-related workflows
+
+Interactive API documentation is available through FastAPI Swagger UI.
 
 ---
 
-## System Architecture
+#  Application Screenshots
+
+##  Patient Dashboard
+
+The patient dashboard provides access to appointment booking, appointment history, and the AI medical assistant.
+
+![Patient Dashboard](screenshots/patient-dashboard.png)
+
+---
+
+##  Doctor Dashboard
+
+The doctor dashboard provides a dedicated interface for managing appointments and accessing the AI assistant.
+
+![Doctor Dashboard](screenshots/doctor-dashboard.png)
+
+---
+
+##  Patient AI Assistant
+
+Patients can interact with the integrated AI assistant through the application.
+
+![Patient AI Assistant](screenshots/patient-ai-assistant.png)
+
+---
+
+##  Doctor AI Assistant
+
+The AI assistant is also available within the doctor workflow.
+
+![Doctor AI Assistant](screenshots/doctor-ai-assistant.png)
+
+---
+
+##  Appointment Booking
+
+Patients can select a doctor and manage their appointments through the application.
+
+![Appointment Booking](screenshots/appointment-booking.png)
+
+---
+
+##  FastAPI Documentation
+
+The backend exposes interactive API documentation through FastAPI's Swagger UI.
+
+![FastAPI Documentation](screenshots/fastapi-docs.png)
+
+---
+
+#  System Architecture
 
 ```text
-                         User
-                           |
-                           v
-                +---------------------+
-                |   Streamlit         |
-                |   Frontend          |
-                +----------+----------+
-                           |
-                           | REST API
-                           v
-                +---------------------+
-                |     FastAPI         |
-                |      Backend        |
-                +----------+----------+
-                           |
-              +------------+------------+
-              |                         |
-              v                         v
-     +----------------+        +----------------+
-     |   PostgreSQL   |        |  AI Services   |
-     |    Database    |        |                |
-     +----------------+        +-------+--------+
-                                       |
-                                       v
-                                +--------------+
-                                |   ChromaDB   |
-                                | Vector Search|
-                                | & Caching    |
-                                +--------------+
+                        ┌─────────────────────────┐
+                        │     Streamlit Frontend  │
+                        │                         │
+                        │  Patient │ Doctor │ AI │
+                        └────────────┬────────────┘
+                                     │
+                                     │ HTTP Requests
+                                     ▼
+                        ┌─────────────────────────┐
+                        │      FastAPI Backend    │
+                        │                         │
+                        │ Authentication          │
+                        │ Patients                │
+                        │ Doctors                 │
+                        │ Appointments             │
+                        │ AI Assistant             │
+                        └───────┬─────────┬───────┘
+                                │         │
+                    ┌───────────┘         └──────────────┐
+                    ▼                                    ▼
+          ┌───────────────────┐                ┌──────────────────┐
+          │   PostgreSQL      │                │   AI / LLM       │
+          │    Database       │                │    Assistant      │
+          └───────────────────┘                └──────────────────┘
+                               
+                        ┌─────────────────────────┐
+                        │         Docker          │
+                        │                         │
+                        │ Frontend │ Backend │ DB│
+                        └─────────────────────────┘
 ```
 
 ---
 
-## AI Workflow
+#  Technology Stack
 
-The AI assistant uses a retrieval and response-caching workflow.
-
-```text
-User Question
-      |
-      v
-Check ChromaDB Cache
-      |
-      +-------------------------+
-      |                         |
-      v                         v
-Cached Response             No Cache
-      |                         |
-      v                         v
-Return Response          Generate AI Response
-                                |
-                                v
-                         Store Response
-                           in ChromaDB
-                                |
-                                v
-                         Return Response
-```
-
-This workflow allows previously processed queries to be retrieved from the vector store rather than repeatedly generating the same response.
+| Layer                | Technology                    |
+| -------------------- | ----------------------------- |
+| Frontend             | Streamlit                     |
+| Backend              | FastAPI                       |
+| Programming Language | Python                        |
+| Database             | PostgreSQL                    |
+| API Server           | Uvicorn                       |
+| AI                   | Large Language Model / AI API |
+| Containerization     | Docker                        |
+| Version Control      | Git & GitHub                  |
+| API Documentation    | FastAPI / Swagger UI          |
 
 ---
 
-## Technology Stack
-
-| Category             | Technologies                            |
-| -------------------- | --------------------------------------- |
-| Programming Language | Python                                  |
-| Backend              | FastAPI, Uvicorn                        |
-| Frontend             | Streamlit                               |
-| Database             | PostgreSQL                              |
-| Database Platform    | Supabase                                |
-| ORM                  | SQLAlchemy                              |
-| AI / RAG             | Mistral, Retrieval-Augmented Generation |
-| Vector Storage       | ChromaDB                                |
-| API Architecture     | REST                                    |
-| Containerization     | Docker, Docker Compose                  |
-| Version Control      | Git, GitHub                             |
-
----
-
-## Project Structure
+#  Project Structure
 
 ```text
 medical-appointment-system/
-|
+│
 ├── backend/
 │   ├── main.py
-│   ├── auth.py
-│   ├── database.py
-│   ├── models.py
-│   ├── schemas.py
-│   ├── ai_service.py
-│   ├── agent_service.py
-│   ├── chroma_cache.py
-│   ├── assistant_tools.py
 │   ├── requirements.txt
-│   └── Dockerfile
-|
+│   └── ...
+│
 ├── frontend/
 │   ├── app.py
 │   ├── requirements.txt
-│   └── Dockerfile
-|
-├── .gitignore
+│   └── ...
+│
+├── screenshots/
+│   ├── patient-dashboard.png
+│   ├── doctor-dashboard.png
+│   ├── patient-ai-assistant.png
+│   ├── doctor-ai-assistant.png
+│   ├── appointment-booking.png
+│   └── fastapi-docs.png
+│
 ├── docker-compose.yml
+├── .gitignore
 └── README.md
 ```
 
-### Backend Components
-
-| File                 | Purpose                                   |
-| -------------------- | ----------------------------------------- |
-| `main.py`            | FastAPI application and API routes        |
-| `auth.py`            | Authentication functionality              |
-| `database.py`        | Database connection and configuration     |
-| `models.py`          | Database models                           |
-| `schemas.py`         | API request and response schemas          |
-| `ai_service.py`      | AI-related application logic              |
-| `agent_service.py`   | AI agent and workflow functionality       |
-| `chroma_cache.py`    | ChromaDB integration and response caching |
-| `assistant_tools.py` | Tools used by the AI assistant            |
-
 ---
 
-## API
+#  Running the Application
 
-The application exposes RESTful endpoints for core application functionality.
+## Prerequisites
 
-Examples include:
+Make sure you have the following installed:
 
-```text
-POST /appointments
-GET  /appointments
-POST /login
-POST /chat
-```
-
-FastAPI provides interactive API documentation through Swagger UI.
-
-When running locally:
-
-```text
-http://localhost:8000/docs
-```
-
----
-
-## Getting Started
-
-### Prerequisites
-
-Install the following before running the application:
-
-* Python 3.10 or later
-* PostgreSQL
+* Python 3.11+
 * Docker Desktop
 * Git
 
 ---
 
-### Clone the Repository
+## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/juliagrace07/medical-appointment-system.git
+git clone https://github.com/YOUR_USERNAME/medical-appointment-system.git
 cd medical-appointment-system
 ```
 
 ---
 
-## Backend Setup
+## 2. Configure Environment Variables
 
-Navigate to the backend directory:
+Create a `.env` file containing the required configuration.
 
-```bash
-cd backend
+Example:
+
+```env
+DATABASE_URL=your_database_connection_string
+AI_API_KEY=your_api_key
 ```
 
-Create a virtual environment:
+> Never commit API keys, passwords, database credentials, or other secrets to GitHub.
+
+---
+
+## 3. Build the Docker Containers
 
 ```bash
-python -m venv venv
+docker compose build
 ```
 
-### Windows
+---
+
+## 4. Start the Application
 
 ```bash
-venv\Scripts\activate
+docker compose up -d
 ```
 
-### macOS / Linux
+---
+
+## 5. Check Running Containers
 
 ```bash
-source venv/bin/activate
+docker ps
 ```
 
-Install the backend dependencies:
+You should see the application containers running.
 
-```bash
-pip install -r requirements.txt
+---
+
+#  Accessing the Application
+
+Once the containers are running:
+
+### Frontend
+
+```text
+http://localhost:8501
 ```
 
-Start the FastAPI development server:
-
-```bash
-uvicorn main:app --reload
-```
-
-The backend will be available at:
+### FastAPI Backend
 
 ```text
 http://localhost:8000
 ```
 
-Interactive API documentation:
+### FastAPI Swagger Documentation
+
+```text
+http://localhost:8000/docs
+```
+
+### FastAPI ReDoc
+
+```text
+http://localhost:8000/redoc
+```
+
+---
+
+#  API Overview
+
+The FastAPI backend provides RESTful endpoints for the application's core functionality.
+
+Example endpoint categories include:
+
+```text
+GET     /doctors
+GET     /patients/{patient_id}/appointments
+POST    /appointments
+POST    /ai/chat
+```
+
+The complete API can be explored through:
 
 ```text
 http://localhost:8000/docs
@@ -280,152 +295,179 @@ http://localhost:8000/docs
 
 ---
 
-## Frontend Setup
+#  Database
 
-Open a new terminal and navigate to the frontend directory:
+The application uses **PostgreSQL** for persistent storage.
 
-```bash
-cd frontend
-```
+The database manages information such as:
 
-Install the frontend dependencies:
+* Patients
+* Doctors
+* Appointments
+* User-related information
+* Appointment relationships
 
-```bash
-pip install -r requirements.txt
-```
-
-Start the Streamlit application:
-
-```bash
-streamlit run app.py
-```
-
-Streamlit will provide the local URL for accessing the application.
+The backend communicates with PostgreSQL through the application's API layer.
 
 ---
 
-## Docker
+#  Docker Architecture
 
-The application includes Docker configuration for the frontend and backend services.
+The application is containerized to provide a consistent development and deployment environment.
 
-From the project root:
-
-```bash
-docker compose up --build
+```text
+┌──────────────────────────────┐
+│          Docker              │
+│                              │
+│  ┌──────────┐                │
+│  │ Frontend │ :8501          │
+│  └────┬─────┘                │
+│       │                      │
+│  ┌────▼─────┐                │
+│  │ Backend  │ :8000          │
+│  └────┬─────┘                │
+│       │                      │
+│  ┌────▼─────┐                │
+│  │PostgreSQL│                │
+│  └──────────┘                │
+│                              │
+└──────────────────────────────┘
 ```
 
-To stop the application:
+Docker helps isolate the application services and simplifies local setup.
+
+---
+
+#  Development & Testing
+
+Useful Docker commands:
+
+### View running containers
+
+```bash
+docker ps
+```
+
+### View backend logs
+
+```bash
+docker logs medical_backend
+```
+
+### View frontend logs
+
+```bash
+docker logs medical_frontend
+```
+
+### Stop the application
 
 ```bash
 docker compose down
 ```
 
----
-
-## Environment Variables
-
-The application uses environment variables for configuration and credentials.
-
-Create a local `.env` file based on the required configuration.
-
-Example:
-
-```text
-DATABASE_URL=
-SUPABASE_URL=
-SUPABASE_KEY=
-MODEL_API_KEY=
-```
-
-Do not commit `.env` files, API keys, passwords, database credentials, or other sensitive information to the repository.
-
-A `.env.example` file can be used to document required environment variables without exposing credentials.
-
----
-
-## Screenshots
-
-Screenshots demonstrating the application interface and API documentation will be added here.
-
-### Application Dashboard
-
-![Application Dashboard](docs/images/dashboard.png)
-
-### Appointment Management
-
-![Appointment Management](docs/images/appointments.png)
-
-### AI Assistant
-
-![AI Assistant](docs/images/ai-assistant.png)
-
-### API Documentation
-
-![API Documentation](docs/images/api-docs.png)
-
----
-
-## Testing
-
-Automated testing is being added to validate core application functionality, API behavior, and appointment-management workflows.
-
-The planned test suite will use `pytest`.
+### Rebuild the application
 
 ```bash
-pytest
+docker compose build
+```
+
+### Rebuild and restart
+
+```bash
+docker compose up -d --build
 ```
 
 ---
 
-## Future Improvements
+#  Security Considerations
 
-* Doctor availability management
-* Expanded role-based access control
-* Appointment reminders
-* Calendar integration
-* Analytics dashboard
-* Cloud deployment
-* Expanded automated test coverage
-* AI retrieval evaluation
-* Application monitoring
-* Improved production deployment configuration
+The project follows basic application security practices including:
+
+* Environment variables for sensitive configuration
+* `.gitignore` to prevent accidental secret commits
+* Separation between frontend and backend
+* Backend API layer for database access
+* Role-specific application workflows
+
+**API keys and database credentials should never be committed to the repository.**
 
 ---
 
-## Engineering Concepts Demonstrated
+#  Key Engineering Concepts Demonstrated
 
 This project demonstrates practical experience with:
 
-* REST API development
-* FastAPI application architecture
-* Database modeling
-* PostgreSQL integration
-* Authentication
 * Full-stack application development
-* Frontend/backend separation
+* REST API development
+* FastAPI
+* Streamlit
+* PostgreSQL
 * Docker containerization
-* RESTful API design
-* Vector search
-* Retrieval-Augmented Generation
-* AI response caching
+* Client-server architecture
+* Database integration
 * API documentation
-* Software architecture
+* Authentication and role-based workflows
+* AI/LLM integration
+* Git and GitHub
+* Environment configuration
+* Debugging containerized applications
 
 ---
 
-## Author
+#  Future Improvements
+
+Potential future enhancements include:
+
+* [ ] JWT-based authentication
+* [ ] Password hashing and improved authentication security
+* [ ] Email appointment notifications
+* [ ] Calendar integration
+* [ ] Doctor availability management
+* [ ] Appointment cancellation/rescheduling
+* [ ] Improved AI response grounding
+* [ ] Medical knowledge retrieval using RAG
+* [ ] Automated backend testing
+* [ ] CI/CD pipeline
+* [ ] Cloud deployment
+* [ ] Production monitoring and logging
+
+---
+
+#  What I Learned
+
+Building this project provided hands-on experience developing and debugging a multi-service application.
+
+Key areas included:
+
+* Designing RESTful APIs with FastAPI
+* Connecting a Python backend to PostgreSQL
+* Building interactive interfaces with Streamlit
+* Integrating AI functionality into an existing application
+* Containerizing multiple services with Docker
+* Managing communication between frontend, backend, and database services
+* Debugging API and Docker-related issues
+* Documenting APIs using Swagger/OpenAPI
+
+---
+
+#  Author
 
 **Julia Grace Muddada**
 
-M.S. Computer Science | Wright State University
+M.S. Computer Science
+Wright State University
+LinkedIn: https://www.linkedin.com/in/julia-grace-muddada-6708271b3/
 
-* GitHub: [juliagrace07](https://github.com/juliagrace07)
-* LinkedIn: [Julia Grace Muddada](https://www.linkedin.com/in/julia-grace-muddada-6708271b3/)
+
+### Areas of Interest
+
+* Software Engineering
+* Backend Development
+* Full-Stack Development
+* AI/ML Applications
+* Cloud & DevOps
 
 ---
 
-## Project Status
-
-**Active portfolio project**
-
-The application is being continuously improved with additional testing, documentation, deployment, and software engineering practices.
+ If you found this project interesting, feel free to explore the repository and its implementation.
