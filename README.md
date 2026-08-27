@@ -48,56 +48,45 @@ The backend is built with FastAPI and provides API endpoints for:
 Interactive API documentation is available through FastAPI Swagger UI.
 
 ---
+# 🖥️ Application Screenshots
 
-#  Application Screenshots
-
-##  Patient Dashboard
+## 👤 Patient Dashboard
 
 The patient dashboard provides access to appointment booking, appointment history, and the AI medical assistant.
 
-![Patient Dashboard](screenshots/patient-dashboard.png)
+![Patient Dashboard](screenshots/patientdashboard.png)
 
 ---
 
-##  Doctor Dashboard
+## 👨‍⚕️ Doctor Dashboard
 
 The doctor dashboard provides a dedicated interface for managing appointments and accessing the AI assistant.
 
-![Doctor Dashboard](screenshots/doctor-dashboard.png)
+![Doctor Dashboard](screenshots/doctordashboard.png)
 
 ---
 
-##  Patient AI Assistant
+## 🤖 Patient AI Assistant
 
 Patients can interact with the integrated AI assistant through the application.
 
-![Patient AI Assistant](screenshots/patient-ai-assistant.png)
+![Patient AI Assistant](screenshots/patassistant.png)
 
 ---
 
-##  Doctor AI Assistant
+## 🤖 Doctor AI Assistant
 
 The AI assistant is also available within the doctor workflow.
 
-![Doctor AI Assistant](screenshots/doctor-ai-assistant.png)
+![Doctor AI Assistant](screenshots/docassistant.png)
 
 ---
 
-##  Appointment Booking
-
-Patients can select a doctor and manage their appointments through the application.
-
-![Appointment Booking](screenshots/appointment-booking.png)
-
----
-
-##  FastAPI Documentation
+## 🔌 FastAPI Documentation
 
 The backend exposes interactive API documentation through FastAPI's Swagger UI.
 
-![FastAPI Documentation](screenshots/fastapi-docs.png)
-
----
+![FastAPI Documentation](screenshots/localhost8000docs.png)
 
 #  System Architecture
 
